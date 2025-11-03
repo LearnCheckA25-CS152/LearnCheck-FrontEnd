@@ -1,11 +1,13 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to LearnCheck</h1>
-    </div>
+    <Routes>
+       <Route path='/' element={<HomePage/>}/>
+    </Routes>
   );
 }
 
-export default App;
+export default App; 
