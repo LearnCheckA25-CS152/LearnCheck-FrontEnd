@@ -3,7 +3,7 @@ import React from "react";
 function HomePage() {
     return (
       <div className="App">
-        <h1>Welcome to LearnCheck</h1>
+        <h1 className="text-3xl font-bold underline">Welcome to LearnCheck</h1>
       </div>
     )
 }
