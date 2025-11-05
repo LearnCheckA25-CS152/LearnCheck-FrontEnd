@@ -1,1 +1,164 @@
 @import "tailwindcss";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+    justify-items: center;
+}
+
+.app {
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 32px 25px;
+  width: 720px;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.clipboard-list {
+    width: 64px;
+    height: 64px;
+}
+
+.image-content {
+    display: flex;
+    justify-content: center;
+}
+
+.img-container {
+   width: 100px;
+   height: 100px;
+   border-radius: 100px;
+   background-color: #F5F5F5;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+h2 {
+    margin-top: 18px;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 450; 
+}
+
+.rule-subtitle {
+    font-size: 16px;
+    margin-top: 18px;
+    color: #475569;
+}
+
+.rule-content {
+    margin-top: 18px;
+    display: inline-block;
+    text-align: center;
+}
+
+.card-list {
+    justify-content: center;
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 8px;
+}
+
+.card-item {
+    background-color: #F5F5F5;
+    padding: 16px;
+    border-radius: 8px;
+    width: 30%;
+    border: 2px solid #D4D4D4;
+}
+
+.card-img {
+    width: 24px;
+    height: 24px;
+}
+
+h4 {
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.sub-item {
+    color: #737373;
+}
+
+.btn-action {
+    margin-top: 18px;
+}
+
+.homepage-action {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-start {
+    padding: 8px;
+    background-color: black;
+    color: white;
+    width: 30%;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.history-item {
+    margin-top: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #D4D4D4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.history-score {
+    font-size: 16px;
+    color: black;
+}
+
+.history-time {
+    font-size: 14px;
+    color: #737373;
+}
+
+.background-icon {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.background-icon-success {
+    background-color: #DCFCE7;
+}
+
+.background-icon-warning {
+    background-color: #FEF9C3;
+}
+
+.background-icon-danger {
+    background-color: #FFE2E2;
+}
+
+.btn-detail-history {
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -4,9 +4,12 @@ import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <Routes>
+    <div className="app-container">
+       <Routes>
        <Route path='/' element={<HomePage/>}/>
     </Routes>
+    </div>
+   
   );
 }
 
