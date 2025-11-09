@@ -1,5 +1,6 @@
 // Data dummy untuk kuis
 export const DUMMY_QUIZ_DATA = {
+  "title": "Kuis : Front-End Web Development dengan React",
   "questions": [
     {
       "id": 1,
