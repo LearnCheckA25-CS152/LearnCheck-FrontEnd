@@ -3,11 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-* {
+/*  {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
+} */
 
 .app-container {
     justify-items: center;
@@ -24,7 +24,7 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.clipboard-list {
+/* .clipboard-list {
     width: 64px;
     height: 64px;
 }
@@ -164,10 +164,10 @@ h4 {
     color: white;
     font-size: 14px;
     font-weight: 500;
-}
+} */
 
 /* Quiz Page Styles */
-.quiz-container {
+/* .quiz-container {
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -332,7 +332,7 @@ h4 {
 
 .nav-next:hover {
   background-color: #111827;
-}
+} */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
