@@ -1,9 +1,10 @@
 import React from "react";
+import { LuClipboardList } from "react-icons/lu";
 
 function Images() {
     return (
         <div className="img-container">
-            <img src="./src/assets/icon/clipboard.png" className= "clipboard-list" alt="" />
+            <LuClipboardList fontSize={64}/>
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import React from "react";
+import { Button } from "../components/ui/button";
 
 function BtnDetailHistory() {
     return (    
-        <button className="btn-detail-history">Lihat Detail</button>
+        <Button className={"bg-black text-white hover:bg-neutral-900 btn-detail-history"}>Lihat Detail</Button> 
     )
 }
 

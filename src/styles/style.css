@@ -24,11 +24,6 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.clipboard-list {
-    width: 64px;
-    height: 64px;
-}
-
 .image-content {
     display: flex;
     justify-content: center;
@@ -110,10 +105,7 @@ h4 {
 
 .btn-start {
     padding: 8px;
-    background-color: black;
-    color: white;
     width: 30%;
-    border-radius: 8px;
     font-weight: 500;
 }
 
@@ -159,9 +151,6 @@ h4 {
 
 .btn-detail-history {
     padding: 8px 15px;
-    border-radius: 8px;
-    background-color: black;
-    color: white;
     font-size: 14px;
     font-weight: 500;
 }

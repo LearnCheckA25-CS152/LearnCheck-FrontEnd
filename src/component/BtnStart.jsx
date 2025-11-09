@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/button";
 
 function BtnStart() {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ function BtnStart() {
 
     return (
         <div className="homepage-action">
-            <button className="btn-start" type="button" onClick={handleStart}>Mulai Pengerjaan</button>
+            <Button className={"bg-black text-white hover:bg-neutral-900 btn-start"} onClick={() => handleStart()}>Mulai Pengerjaan</Button>
         </div>
     )
 }
