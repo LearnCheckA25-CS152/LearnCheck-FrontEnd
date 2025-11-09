@@ -1,9 +1,10 @@
 import React from "react";
+import { LuClipboardPen } from "react-icons/lu";
 
 function RequirementList() {
     return (
         <article className="card-item">
-           <img className="card-img" src="./src/assets/icon/clipboard-with-pen.png" alt="" />
+           <LuClipboardPen fontSize={25}/>
            <h4>Syarat Nilai : </h4> 
            <p className="sub-item">80%</p>
         </article>

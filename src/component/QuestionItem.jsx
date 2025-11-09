@@ -1,9 +1,10 @@
 import React from "react";
+import { LuLayoutList } from "react-icons/lu";
 
 function QuestionItem() {
     return (
         <article className="card-item">
-           <img className="card-img" src="./src/assets/icon/list-items.png" alt="" />
+           <LuLayoutList fontSize={25}/>
            <h4>Jumlah Soal : </h4> 
            <p className="sub-item">3 Soal</p>
         </article>
