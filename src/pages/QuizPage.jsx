@@ -33,10 +33,29 @@ function QuizPage() {
   const handleFinishQuiz = useCallback(() => {
     // Quiz selesai
     const stats = calculateQuizStats(selectedAnswersRef.current, quizDataRef.current?.questions || []);
+
+    // Simpan hasil ke localStorage
+    const quizResult = {
+      ...stats,
+      answers: selectedAnswersRef.current,
+      questions: quizDataRef.current?.questions || [],
+      timeUsed: 300 - timeRemaining,
+      timestamp: new Date().toISOString(),
+      quizTitle: quizDataRef.current?.title || "Quiz",
+    };
+
+    // Ambil history hasil quiz sebelumnya
+    const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
+    quizHistory.push(quizResult);
+
+    // Simpan ke localStorage
+    localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
+    localStorage.setItem("lastQuizResult", JSON.stringify(quizResult));
+
     console.log("Quiz completed:", stats);
     // Navigate ke hasil atau halaman lain
     navigate("/");
-  }, [navigate]);
+  }, [navigate, timeRemaining]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -76,13 +95,18 @@ function QuizPage() {
     });
   }, [totalQuestions, handleFinishQuiz]);
 
-  if (!quizData) return <div className="loading">Memuat soal...</div>;
+  if (!quizData)
+    return <div className="flex items-center justify-center min-h-screen text-gray-600">Memuat soal...</div>;
   if (!Array.isArray(quizData.questions) || quizData.questions.length === 0)
-    return <div>Tidak ada pertanyaan untuk ditampilkan</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-600">
+        Tidak ada pertanyaan untuk ditampilkan
+      </div>
+    );
 
   return (
-    <div className="app-container">
-      <div className="quiz-container">
+    <div className="flex justify-center">
+      <div className="my-5 px-6 py-8 w-[720px] max-w-[1200px] rounded-[10px] shadow-[0px_4px_8px_rgba(0,0,0,0.2)] bg-white">
         <QuizHeader
           currentQuestionIndex={currentQuestionIndex}
           totalQuestions={totalQuestions}
