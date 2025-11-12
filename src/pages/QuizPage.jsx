@@ -33,10 +33,29 @@ function QuizPage() {
   const handleFinishQuiz = useCallback(() => {
     // Quiz selesai
     const stats = calculateQuizStats(selectedAnswersRef.current, quizDataRef.current?.questions || []);
+
+    // Simpan hasil ke localStorage
+    const quizResult = {
+      ...stats,
+      answers: selectedAnswersRef.current,
+      questions: quizDataRef.current?.questions || [],
+      timeUsed: 300 - timeRemaining,
+      timestamp: new Date().toISOString(),
+      quizTitle: quizDataRef.current?.title || "Quiz",
+    };
+
+    // Ambil history hasil quiz sebelumnya
+    const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
+    quizHistory.push(quizResult);
+
+    // Simpan ke localStorage
+    localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
+    localStorage.setItem("lastQuizResult", JSON.stringify(quizResult));
+
     console.log("Quiz completed:", stats);
     // Navigate ke hasil atau halaman lain
     navigate("/");
-  }, [navigate]);
+  }, [navigate, timeRemaining]);
 
   useEffect(() => {
     const timer = setInterval(() => {
