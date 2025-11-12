@@ -95,13 +95,18 @@ function QuizPage() {
     });
   }, [totalQuestions, handleFinishQuiz]);
 
-  if (!quizData) return <div className="loading">Memuat soal...</div>;
+  if (!quizData)
+    return <div className="flex items-center justify-center min-h-screen text-gray-600">Memuat soal...</div>;
   if (!Array.isArray(quizData.questions) || quizData.questions.length === 0)
-    return <div>Tidak ada pertanyaan untuk ditampilkan</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-600">
+        Tidak ada pertanyaan untuk ditampilkan
+      </div>
+    );
 
   return (
-    <div className="app-container">
-      <div className="quiz-container">
+    <div className="flex justify-center">
+      <div className="my-5 px-6 py-8 w-[720px] max-w-[1200px] rounded-[10px] shadow-[0px_4px_8px_rgba(0,0,0,0.2)] bg-white">
         <QuizHeader
           currentQuestionIndex={currentQuestionIndex}
           totalQuestions={totalQuestions}

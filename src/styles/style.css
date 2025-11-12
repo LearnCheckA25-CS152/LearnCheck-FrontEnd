@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
- {
+{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -161,6 +161,7 @@ h4 {
 } 
 
 /* Quiz Page Styles */
+/*
 .quiz-container {
   margin: 0 auto;
   margin-top: 20px;
@@ -326,7 +327,8 @@ h4 {
 
 .nav-next:hover {
   background-color: #111827;
-} 
+}
+*/ 
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
