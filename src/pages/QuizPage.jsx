@@ -33,9 +33,11 @@ function QuizPage() {
   const handleFinishQuiz = useCallback(() => {
     // Quiz selesai
     const stats = calculateQuizStats(selectedAnswersRef.current, quizDataRef.current?.questions || []);
+    const quizId = Math.random().toString(36).substr(2, 9);
 
     // Simpan hasil ke localStorage
     const quizResult = {
+      id: quizId,
       ...stats,
       answers: selectedAnswersRef.current,
       questions: quizDataRef.current?.questions || [],
@@ -43,6 +45,8 @@ function QuizPage() {
       timestamp: new Date().toISOString(),
       quizTitle: quizDataRef.current?.title || "Quiz",
     };
+
+    console.log(quizResult);
 
     // Ambil history hasil quiz sebelumnya
     const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
