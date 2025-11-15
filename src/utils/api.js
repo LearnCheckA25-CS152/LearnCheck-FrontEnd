@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-async function fetchQuiz(tutorialId) {
-  const response = await fetch(`${API_URL}/api/tutorials/${tutorialId}`);
+async function generateQuiz(tutorialId) {
+  const response = await fetch(`${API_URL}/api/generate-question/tutorials/${tutorialId}`);
   const responseData = await response.json();
 
   if(!response.ok) {
@@ -34,4 +34,4 @@ async function calculateQuizScore(quizResults) {
     
 }
 
-export { fetchQuiz, calculateQuizScore };
+export { generateQuiz, calculateQuizScore };
