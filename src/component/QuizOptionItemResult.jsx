@@ -9,8 +9,8 @@ export function QuizResultHeader({  option, currentQuestionIndex, userAnsweredDa
       className={`flex items-center space-x-2  p-4 rounded-md border ${
         userAnsweredData[currentQuestionIndex]?.selectedAnswer === option
           ? userAnsweredData[currentQuestionIndex]?.isCorrect
-            ? "bg-green-100 border-green-500"
-            : "bg-red-100 border-red-500"
+            ? "bg-green-100 border-green-500 dark:bg-green-950"
+            : "bg-red-100 border-red-500 dark:bg-red-950"
           : ""
       }`}
     >
@@ -21,10 +21,13 @@ export function QuizResultHeader({  option, currentQuestionIndex, userAnsweredDa
         }
         id={option}
         disabled
-        className="bg-white"
+        className="bg-white dark:border-gray-300  focus:ring-2 focus:ring-offset-2 focus:ring-primary-600"
       />
-      <Label htmlFor={option} className=" text-sm">
-        {option}
+      <Label
+        htmlFor={option}
+        className=""
+      >
+        <p className=" font-light">{option}</p>
       </Label>
     </div>
   );

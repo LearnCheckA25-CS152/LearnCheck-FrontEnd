@@ -5,7 +5,7 @@ export function QuizQuestionResult({ question,options, currentQuestionIndex,user
   console.log("options", options);
   return (
             <div className=" quiz-question-section mt-4">
-              <h4 className=" font-semibold text-lg">
+              <h4 className=" font-semibold text-lg text-primary leading-[1.6]">
                 {question}
               </h4>
               <RadioGroup defaultValue="option-one" className=" mt-4  w-full">

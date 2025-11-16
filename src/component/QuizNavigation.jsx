@@ -1,4 +1,5 @@
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { Button } from "@/components/ui/button";
 
 function QuizNavigation({ currentQuestionIndex, totalQuestions, onPrevious, onNext }) {
   const isFirstQuestion = currentQuestionIndex === 0;
@@ -6,19 +7,21 @@ function QuizNavigation({ currentQuestionIndex, totalQuestions, onPrevious, onNe
 
   return (
     <div className="flex justify-between gap-4">
-      <button
+      <Button
         onClick={onPrevious}
         disabled={isFirstQuestion}
-        className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 border border-[#D1D5DB] bg-white text-[#6B7280] hover:bg-[#F9FAFB] hover:border-[#9CA3AF] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-[#D1D5DB]">
+        size="lg"
+        className="flex items-center gap-2  rounded-lg  cursor-pointer  disabled:cursor-not-allowed  ">
         <IoChevronBack />
         Previous
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={onNext}
-        className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 border-none bg-[#1F2937] text-white hover:bg-[#111827]">
+        size="lg"
+        className="flex items-center gap-2 rounded-lg cursor-pointer  ">
         {isLastQuestion ? "Finish" : "Next"}
         <IoChevronForward />
-      </button>
+      </Button>
     </div>
   );
 }

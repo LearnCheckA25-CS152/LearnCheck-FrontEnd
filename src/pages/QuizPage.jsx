@@ -6,6 +6,7 @@ import QuizHeader from "../component/QuizHeader";
 import QuizQuestion from "../component/QuizQuestion";
 import QuizOptions from "../component/QuizOptions";
 import QuizNavigation from "../component/QuizNavigation";
+import { Separator } from "@/components/ui/separator";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function QuizPage() {
 
     console.log("Quiz completed:", stats);
     // Navigate ke hasil atau halaman lain
-    navigate("/");
+    navigate("/quiz/result");
   }, [navigate, timeRemaining]);
 
   useEffect(() => {
@@ -105,13 +106,14 @@ function QuizPage() {
     );
 
   return (
-    <div className="flex justify-center">
-      <div className="my-5 px-6 py-8 w-[720px] max-w-[1200px] rounded-[10px] shadow-[0px_4px_8px_rgba(0,0,0,0.2)] bg-white">
+    <div className="flex justify-center w-full lg:w-3xl lg:shadow-2xl lg:rounded-2xl lg:my-5 bg-background">
+      <div className=" px-6 py-4 w-full bg-">
         <QuizHeader
           currentQuestionIndex={currentQuestionIndex}
           totalQuestions={totalQuestions}
           timeRemaining={timeRemaining}
         />
+        <Separator className=" bg-primary h-0.5 mb-4 " />
 
         <QuizQuestion question={currentQuestion.question} />
 
@@ -121,6 +123,7 @@ function QuizPage() {
           selectedAnswer={selectedAnswers[currentQuestion.id]}
           onAnswerSelect={handleAnswerSelect}
         />
+        <Separator className=" bg-primary h-0.5 mb-4" />
 
         <QuizNavigation
           currentQuestionIndex={currentQuestionIndex}

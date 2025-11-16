@@ -4,6 +4,22 @@ import { LuListRestart } from "react-icons/lu";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 function QuizNavigationResult({ isCorrect, currentQuestionIndex, handleRestart, handlePrevious, handleNextQuiz, totalQuestions }) {
+  const nextButton = (currentQuestionIndex, totalQuestions) => {
+    if (currentQuestionIndex === totalQuestions - 1) {
+      return (
+        <Button  variant="outline" onClick={handleNextQuiz} size="lg">
+          Finish
+          <GrFormNext />
+        </Button>
+      );
+    }
+    return (
+      <Button variant="default" onClick={handleNextQuiz} size="lg">
+        Next
+        <GrFormNext />
+      </Button>
+    );
+  };
   return (
     <div className=" quiz-navigation mt-4 flex justify-between align-middle">
       {isCorrect ? (
@@ -16,26 +32,20 @@ function QuizNavigationResult({ isCorrect, currentQuestionIndex, handleRestart, 
         </p>
       )}
       <div className=" flex gap-2">
-        <Button variant="default" onClick={handleRestart}>
+        <Button variant="outline" size="lg" onClick={handleRestart}>
           <LuListRestart />
           Restart
         </Button>
         <Button
-          variant="outline"
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
+          variant="default"
+          size="lg"
         >
           <GrFormPrevious />
           Previous
         </Button>
-        <Button
-          variant="outline"
-          onClick={handleNextQuiz}
-          disabled={currentQuestionIndex === totalQuestions - 1}
-        >
-          Next
-          <GrFormNext />
-        </Button>
+        {nextButton(currentQuestionIndex, totalQuestions)}
       </div>
     </div>
   );
