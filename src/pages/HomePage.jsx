@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Images from "../component/Images";
 import CardList from "../component/CardList";
 import BtnStart from "../component/BtnStart";
 import HistoryList from "../component/HistoryList";
 
 function HomePage() {
+    const params = new URLSearchParams(window.location.search);
+    const tutorialId = params.get('tutorial');
+    const userId = params.get('user');
+
+    useEffect(() => {
+      const tutorialIdFromStorage = localStorage.getItem("tutorialId");
+      if(tutorialId != tutorialIdFromStorage){
+        localStorage.setItem("tutorialId", tutorialId);
+      }
+      const userIdFromStorage = localStorage.getItem("userId");
+      if(userId != userIdFromStorage){
+        localStorage.setItem("userId", userId);
+      }
+    }, [tutorialId, userId]);
+
+    console.log("Tutorial ID from URL:", tutorialId);
+    console.log("User ID from URL:", userId);
+
     return (
       <div className="app">
         <div className="quiz-info">

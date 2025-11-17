@@ -1,15 +1,22 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 async function generateQuiz(tutorialId) {
-  const response = await fetch(`${API_URL}/api/generate-question/tutorials/${tutorialId}`);
-  const responseData = await response.json();
-
-  if(!response.ok) {
-    console.error('Error fetching quiz data:', responseData.message);
+  const response = await fetch(`${API_URL}/api/generate-question/tutorials/${tutorialId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  let responseData;
+  
+  try {
+    responseData = await response.json();
+  } catch (err) {
+    console.error('[api] failed to parse json', err);
     return null;
   }
-  
-  return { data : responseData.data };
+
+  console.log('[api] generateQuiz body : ', responseData);
+
+  return { questions: responseData.questions ?? responseData.data?.questions ?? [] };
 }
 
 async function calculateQuizScore(quizResults) {
@@ -24,13 +31,18 @@ async function calculateQuizScore(quizResults) {
     body: JSON.stringify(quizResults),
   });
 
-  const responseData = await response.json();
-  
-  if(!response.ok) {
-    console.error('Error submitting quiz answers:', responseData.message);
+  let responseData;
+
+  try {
+    responseData = await response.json();
+  } catch (err) {
+    console.error('[api] failed to parse json', err);
     return null;
   }
-  return { data : responseData.data };
+
+  console.log('[api] calculateQuizScore body : ', responseData);
+
+  return responseData;
     
 }
 
