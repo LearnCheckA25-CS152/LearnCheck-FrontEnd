@@ -16,8 +16,8 @@ function QuizPage() {
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 menit
   const selectedAnswersRef = useRef(selectedAnswers);
   const quizDataRef = useRef(quizData);
-
-  const tutorialId = "35363"; 
+  const tutorialId = localStorage.getItem("tutorialId");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     // Inisialisasi quiz dengan pertanyaan acak
@@ -74,7 +74,7 @@ function QuizPage() {
 
     console.log("Quiz completed:", stats);
     // Navigate ke hasil atau halaman lain
-    navigate("/");
+    navigate("/?tutorial=" + tutorialId+"&user="+userId);
   }, [navigate, timeRemaining]);
 
   useEffect(() => {
