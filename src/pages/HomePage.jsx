@@ -4,7 +4,6 @@ import CardList from "../component/CardList";
 import BtnStart from "../component/BtnStart";
 import HistoryList from "../component/HistoryList";
 import { Button } from "../components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 function HomePage() {
 
@@ -48,9 +47,7 @@ function HomePage() {
             <CardList />
           </section>
           <section className="mt-1 text-center ">
-            <Button size="lg" onClick={handleStart}>
-              Mulai Pengerjaan
-            </Button>
+            <BtnStart/>
           </section>
         </div>
         <div className="quiz-history">
@@ -60,7 +57,6 @@ function HomePage() {
           </section>  
         </div>
       </div>
-    </div>
   );
 }
 
