@@ -3,12 +3,12 @@ import { LuClipboardPen } from "react-icons/lu";
 
 function RequirementList() {
     return (
-        <article className="card-item">
-           <LuClipboardPen fontSize={25}/>
-           <h4>Syarat Nilai : </h4> 
-           <p className="sub-item">80%</p>
-        </article>
-    )
+      <article className="p-4 rounded-[8px] bg-card text-card-foreground  border w-[30%]">
+        <LuClipboardPen fontSize={25} />
+        <h4>Syarat Nilai : </h4>
+        <p className="text-muted-foreground">80%</p>
+      </article>
+    );
 }
 
 export default RequirementList;

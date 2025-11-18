@@ -12,13 +12,17 @@ export function QuizResultHeader({
   return (
     <>
       <h3 className=" text-2xl font-medium">{title}</h3>
-      <p className={` ${passRate ? "text-green-600" : "text-red-600"}`}>
-        TotalScore : {percentage}{" "}
+      <p
+        className={` ${
+          passRate ? "text-success-foreground" : "text-danger-foreground"
+        }  `}
+      >
+        Total Score : {percentage}{" "}
       </p>
       <div className="flex gap-3 mt-2">
         <div className=" flex-1">
           <Progress className="mt-1" value={percentage} />
-          <div className=" flex justify-between mt-1 text-neutral-500 text-sm">
+          <div className=" flex justify-between mt-3 text-muted-foreground text-sm">
             <p>Tanggal Kuis: {createdAt}</p>
             <p>
               Soal {currentQuestionIndex + 1} dari {totalQuestions}{" "}
@@ -26,11 +30,11 @@ export function QuizResultHeader({
           </div>
         </div>
         {passRate ? (
-          <div className="bg-green-100 text-green-600 p-2 rounded-md border-green-600 border ">
+          <div className="bg-green-100 text-green-600 p-2 rounded-md border-green-600 border dark:bg-green-950 dark:border-green-500 dark:text-foreground">
             Lulus
           </div>
         ) : (
-          <div className="bg-red-100 text-red-600 p-2 rounded-md border-red-600 border">
+          <div className="bg-red-100 text-red-500 p-2 rounded-md border-red-600 border  dark:bg-red-950 dark:border-red-500 dark:text-foreground">
             Tidak Lulus
           </div>
         )}

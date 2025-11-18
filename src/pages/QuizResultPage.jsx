@@ -90,7 +90,7 @@ function QuizResultPage() {
   if (!quizData) return <div className="loading">Memuat soal...</div>;
 
   return (
-    <div className="quiz-result-page app ">
+    <div className="quiz-result-page app lg:w-3xl lg:shadow-2xl lg:rounded-2xl w-full lg:my-5 bg-background">
       <QuizResultHeader
         passRate={stats?.passRate}
         percentage={stats?.percentage}
@@ -99,6 +99,8 @@ function QuizResultPage() {
         currentQuestionIndex={currentQuestionIndex}
         totalQuestions={totalQuestions}
       />
+      <Separator className="my-4 bg-primary h-0.5 " />
+
       <QuizQuestionResult
         question={stats?.userAnsweredData[currentQuestionIndex]?.question}
         options={quizData?.questions[currentQuestionIndex]?.options}
@@ -109,7 +111,7 @@ function QuizResultPage() {
         explanation={stats?.userAnsweredData[currentQuestionIndex]?.explanation}
         isCorrect={stats?.userAnsweredData[currentQuestionIndex]?.isCorrect}
       />
-      <Separator className="my-4 bg-black" />
+      <Separator className="my-4 bg-primary h-0.5  mb-4" />
       <QuizNavigationResult
         isCorrect={stats?.userAnsweredData[currentQuestionIndex]?.isCorrect}
         currentQuestionIndex={currentQuestionIndex}

@@ -6,7 +6,7 @@ import QuizResultPage from "./pages/QuizResultPage";
 
 function App() {
   return (
-    <div className="app-container ">
+    <div className="app-container bg-background font-default text-foreground px-4 py-6 h-screen flex items-center justify-center dark:md:bg-gray-800 dark text-base ">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/quiz" element={<QuizPage />} />
