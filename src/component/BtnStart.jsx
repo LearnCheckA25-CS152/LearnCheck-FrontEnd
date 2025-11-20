@@ -10,10 +10,12 @@ function BtnStart() {
     };
 
     return (
-        <div className="homepage-action">
-            <Button className={"bg-black text-white hover:bg-neutral-900 btn-start"} onClick={() => handleStart()}>Mulai Pengerjaan</Button>
-        </div>
-    )
+      <div className="homepage-action">
+        <Button size="lg" onClick={() => handleStart()}>
+          Mulai Pengerjaan
+        </Button>
+      </div>
+    );
 }
 
 export default BtnStart;
