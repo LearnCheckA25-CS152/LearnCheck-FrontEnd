@@ -1,5 +1,5 @@
 # LearnCheck-FrontEnd
 Iframe test view:
 ```html
-<iframe src="http://localhost:5173" width="100%" height="750"></iframe>
+<iframe src="http://localhost:5173?tutorial={tutorial_id}&user={user_id}" width="100%" height="750"></iframe>
 ```

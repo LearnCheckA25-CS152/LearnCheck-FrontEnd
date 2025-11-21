@@ -1,10 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>learncheck-frontend</title>
+    <script>
+      try {
+        // Get userId from URL query params
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get("user") || localStorage.getItem("userId");
+        let theme = "light"; // default theme
+
+        if (userId) {
+          // Get user-specific preferences from localStorage
+          const prefsKey = `user_preferences_${userId}`;
+          const storedPrefs = localStorage.getItem(prefsKey);
+
+          if (storedPrefs) {
+            const prefs = JSON.parse(storedPrefs);
+            theme = prefs.theme || "light";
+          }
+        }
+        // If theme is "system", use system preference
+        if (theme === "system") {
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+            .matches
+            ? "dark"
+            : "light";
+          theme = systemTheme;
+        }
+        
+        // Apply theme to document
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (error) {
+        console.error("Failed to apply early theme:", error);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
