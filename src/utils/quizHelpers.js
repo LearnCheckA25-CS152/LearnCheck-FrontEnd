@@ -75,6 +75,18 @@ export const getRandomQuestions = (quizData, minQuestions = 1, maxQuestions = 3)
   };
 };
 
+export function formatDate(dateInput) {
+  const d = dateInput ? new Date(dateInput) : new Date();
+  return d.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
 /**
  * Menghitung statistik kuis
  * @param {Object} selectedAnswers - Jawaban yang dipilih user

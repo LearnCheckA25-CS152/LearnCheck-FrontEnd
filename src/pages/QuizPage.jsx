@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { calculateQuizStats } from "../utils/quizHelpers";
 import { DUMMY_QUIZ_DATA } from "../utils/quizData";
 import QuizHeader from "../component/QuizHeader";
 import QuizQuestion from "../component/QuizQuestion";
 import QuizOptions from "../component/QuizOptions";
 import QuizNavigation from "../component/QuizNavigation";
 import { Separator } from "@/components/ui/separator";
-import { generateQuiz } from "../utils/api";
+import { generateQuiz, calculateQuizScore } from "../utils/api";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -35,45 +34,66 @@ function QuizPage() {
     quizDataRef.current = quizData;
   }, [quizData]);
 
+  async function validateQuiz(quizResults) {
+    const result = await calculateQuizScore(quizResults);
+    console.log("Validated quiz data:", result);
+    if (!result) {
+      console.error("Failed to validate quiz");
+      return null;
+    }
+
+    return result;
+  }
+
   async function fetchQuiz(tutorialId) {
     const result = await generateQuiz(tutorialId);
     console.log("Fetched quiz data:", result);
     if (!result) {
       console.error("Failed to fetch quiz");
-      setQuizData({title : "quiz", questions: []});
+      setQuizData({ title: "Quiz", questions: [] });
       return;
     }
 
-    setQuizData({ questions: result.questions });
+    setQuizData({ title: result.title || "Quiz", questions: result.questions });
   };
 
-  const handleFinishQuiz = useCallback(() => {
+  const handleFinishQuiz = useCallback(async () => {
     // Quiz selesai
-    const stats = calculateQuizStats(selectedAnswersRef.current, quizDataRef.current?.questions || []);
-    const quizId = Math.random().toString(36).substr(2, 9);
+    const historyId = Math.random().toString(36).substr(2, 9);
 
-    // Simpan hasil ke localStorage
     const quizResult = {
-      id: quizId,
-      ...stats,
-      answers: selectedAnswersRef.current,
+      quizId: tutorialId,
+      answers: Object.entries(selectedAnswersRef.current).map(([questionId, answer]) => ({
+        questionId,
+        answer,
+      })),
       questions: quizDataRef.current?.questions || [],
-      timeUsed: 300 - timeRemaining,
-      timestamp: new Date().toISOString(),
-      quizTitle: quizDataRef.current?.title || "Quiz",
+      finishedAt: new Date().toISOString(),
     };
 
-    console.log(quizResult);
+    const result = await validateQuiz(quizResult);
+
+    console.log('[FE] quiz result => ',result);
+
+    const finalQuizResult = {
+      historyId : historyId,
+      quizId : quizResult.quizId,
+      quizData: quizData,                    
+      answers: result?.answers ?? quizResult.answers,
+      stats: result?.stats ?? null,
+      finishedAt: result?.finishedAt ?? quizResult.finishedAt,
+      feedback: result?.feedback ?? null,
+    }
+
+    console.log("Final quiz result:", finalQuizResult);
 
     // Ambil history hasil quiz sebelumnya
     const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
-    quizHistory.push(quizResult);
+    quizHistory.push(finalQuizResult);
 
     // Simpan ke localStorage
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
-    localStorage.setItem("lastQuizResult", JSON.stringify(quizResult));
-
-    console.log("Quiz completed:", stats);
+    localStorage.setItem("lastQuizResult", JSON.stringify(finalQuizResult));
     // Navigate ke hasil atau halaman lain
 
     navigate("/?tutorial=" + tutorialId+"&user="+userId);

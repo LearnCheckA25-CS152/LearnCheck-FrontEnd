@@ -11,6 +11,9 @@ function HomePage() {
     const tutorialId = params.get('tutorial');
     const userId = params.get('user');
 
+    const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
+    console.log('[homepage] quiz history => ', quizHistory);
+
     useEffect(() => {
       const tutorialIdFromStorage = localStorage.getItem("tutorialId");
       if(tutorialId != tutorialIdFromStorage){
@@ -53,7 +56,7 @@ function HomePage() {
         <div className="quiz-history">
           <section className="history">
             <h3 className="text-primary ">Riwayat Kuis :</h3>
-            <HistoryList />
+            <HistoryList quizHistory={quizHistory} />
           </section>  
         </div>
       </div>
