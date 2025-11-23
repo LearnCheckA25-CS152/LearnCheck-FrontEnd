@@ -6,10 +6,10 @@ import { ImCross } from "react-icons/im";
 
 function HistoryItem({historyItem}) {
   
-  const { historyId, stats } = historyItem;
+  const { historyId, stats = {} } = historyItem;
   const { finishedAt: rawFinishedAt } = historyItem;
   const finishedAt = formatDate(rawFinishedAt);
-  const percentage = stats.percentage;
+  let percentage = stats.percentage;
   console.log("History Item Stats:", percentage);
   console.log("History Item ID:", historyId);
   console.log("Finished At:", finishedAt);

@@ -56,7 +56,11 @@ function HomePage() {
         <div className="quiz-history">
           <section className="history">
             <h3 className="text-primary ">Riwayat Kuis :</h3>
-            <HistoryList quizHistory={quizHistory} />
+            {(quizHistory.length === 0) ? (
+              <p className="text-muted-foreground">Belum ada riwayat kuis.</p>
+            ) : (
+              <HistoryList quizHistory={quizHistory} />
+            )}
           </section>  
         </div>
       </div>

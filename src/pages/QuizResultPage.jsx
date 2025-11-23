@@ -18,7 +18,7 @@ function QuizResultPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
   const { resultId } = useParams();
-  const resultData = quizHistory.filter((item) => item.historyId === resultId)[0];
+  const [resultData, setResultData] = useState(null);
   const tutorialId = localStorage.getItem("tutorialId");
   const userId = localStorage.getItem("userId");
 
@@ -32,8 +32,16 @@ function QuizResultPage() {
   console.log(quizHistory);
 
   useEffect(() => {
+    const quizHistoryLocal = JSON.parse(localStorage.getItem("quizHistory") || "[]");
+    const found = quizHistoryLocal.find((item) => item.historyId === resultId) || null;
+    setResultData(found);
+  }, [resultId]);
+
+  useEffect(() => {
     // Simulasi pengambilan data kuis
     // const randomQuiz = getRandomQuestions(DUMMY_QUIZ_DATA, 1, 3);
+
+    if(!resultData) return;
     
     const finishedAtValue = resultData?.finishedAt ?? null;
     setFinishedAt(formatDate(finishedAtValue));
@@ -45,7 +53,7 @@ function QuizResultPage() {
     });
 
   setAnswers(restoredAnswer);
-  }, []);
+  }, [resultData]);
 
   // sementara
   const calculateQuizStats = useCallback(() => {
@@ -77,7 +85,7 @@ function QuizResultPage() {
       percentage,
       passRate: percentage >= 66,
     };
-  }, [answers, quizData]);
+  }, [answers, quizData, resultData]);
 
   const stats = quizData ? calculateQuizStats() : null;
   const totalQuestions = quizData?.questions?.length || 0;
