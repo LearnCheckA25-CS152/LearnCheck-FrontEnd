@@ -4,8 +4,13 @@ import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import QuizResultPage from "./pages/QuizResultPage";
 import { useUserPreferences } from "./hook/useUserPreferences";
+import { useLocation } from "react-router-dom";
 
 function App() {
+
+  const location = useLocation();
+  console.log("window location => ", location.pathname);
+
   const [userId, setUserId] = useState(null);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -90,7 +95,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/quiz" element={<QuizPage />} />
-        <Route path="/quiz/result" element={<QuizResultPage />} />
+        <Route path="/quiz/result/:resultId" element={<QuizResultPage />} />
       </Routes>
     </div>
   );

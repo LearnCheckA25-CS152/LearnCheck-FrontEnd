@@ -23,7 +23,7 @@ async function calculateQuizScore(quizResults) {
   console.log('api : ',quizResults);
   console.log('API_URL : ',API_URL);
 
-  const response = await fetch(`${API_URL}/api/test`, {
+  const response = await fetch(`${API_URL}/api/quiz/validate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,10 +31,12 @@ async function calculateQuizScore(quizResults) {
     body: JSON.stringify(quizResults),
   });
 
+  const text = await response.text();
+  console.log('[api] calculateQuizScore response text : ', text);
   let responseData;
 
   try {
-    responseData = await response.json();
+    responseData = JSON.parse(text);
   } catch (err) {
     console.error('[api] failed to parse json', err);
     return null;

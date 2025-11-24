@@ -1,9 +1,13 @@
 import React from "react";
 import HistoryItem from "./HistoryItem";
 
-function HistoryList() {
+function HistoryList({quizHistory}) {
     return (
-        <HistoryItem/>
+        <>
+        {quizHistory.map((historyItem) => (
+            <HistoryItem key={historyItem.historyId} historyItem={historyItem} />
+        ))}
+        </>
     )
 }
 

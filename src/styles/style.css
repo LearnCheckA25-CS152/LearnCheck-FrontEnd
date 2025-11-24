@@ -139,14 +139,17 @@ h4 {
 
 .background-icon-success {
   background-color: #dcfce7;
+  color: green;
 }
 
 .background-icon-warning {
   background-color: #fef9c3;
+  
 }
 
 .background-icon-danger {
   background-color: #ffe2e2;
+  color: rgb(255, 0, 0);
 }
 
 .btn-detail-history {

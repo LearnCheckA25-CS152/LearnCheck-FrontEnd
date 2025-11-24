@@ -1,9 +1,19 @@
 import React from "react";
 import { Button } from "../components/ui/button";
+import { useNavigate } from "react-router-dom";
 
-function BtnDetailHistory() {
+
+function BtnDetailHistory({historyId}) {
+
+    const navigate = useNavigate();
+
+    const handlerDetailHistory = () => {
+        console.log("Detail history clicked for ID:", historyId);
+        navigate(`/quiz/result/${historyId}`);
+    }
+
     return (    
-        <Button  size="lg" className={"rounded-sm"}>Lihat Detail</Button> 
+        <Button  size="lg" className={"rounded-sm"} onClick={handlerDetailHistory}>Lihat Detail</Button> 
     )
 }
 

@@ -6,7 +6,7 @@ function RequirementList() {
       <article className="p-4 rounded-[8px] bg-card text-card-foreground  border w-[30%]">
         <LuClipboardPen fontSize={25} />
         <h4>Syarat Nilai : </h4>
-        <p className="text-muted-foreground">80%</p>
+        <p className="text-muted-foreground">66%</p>
       </article>
     );
 }
