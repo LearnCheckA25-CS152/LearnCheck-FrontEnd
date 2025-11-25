@@ -50,10 +50,10 @@ h2 {
   text-align: center;
 }
 
-h3 {
+/* h3 {
   font-size: 20px;
   font-weight: 450;
-}
+} */
 
 .rule-subtitle {
   font-size: 16px;
@@ -88,11 +88,11 @@ h3 {
   width: 24px;
   height: 24px;
 }
-
+/* 
 h4 {
   font-weight: 600;
   margin-top: 12px;
-}
+} */
 
 .sub-item {
   color: #737373;

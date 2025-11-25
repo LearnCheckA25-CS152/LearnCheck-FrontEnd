@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import QuizResultPage from "./pages/QuizResultPage";
+import FeedbackPage from "./pages/FeedbackPage";
 import { useUserPreferences } from "./hook/useUserPreferences";
 import { useLocation } from "react-router-dom";
 
@@ -96,6 +97,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/quiz/result/:resultId" element={<QuizResultPage />} />
+        <Route path="/quiz/result/feedback" element={<FeedbackPage />} />
       </Routes>
     </div>
   );

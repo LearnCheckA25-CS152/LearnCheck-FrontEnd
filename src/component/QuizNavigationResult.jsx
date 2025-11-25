@@ -33,7 +33,7 @@ function QuizNavigationResult({ isCorrect, currentQuestionIndex, handleRestart, 
       )}
       <div className=" flex gap-2">
         <Button variant="outline" size="lg" onClick={handleRestart}>
-          <LuListRestart />
+          <LuListRestart  className="mr-1"/>
           Restart
         </Button>
         <Button
