@@ -42,7 +42,7 @@ async function calculateQuizScore(quizResults) {
     return null;
   }
 
-  console.log('[api] calculateQuizScore body : ', responseData);
+  console.log('[apii] calculateQuizScore body : ', responseData);
 
   return responseData;
     
