@@ -11,7 +11,7 @@ export function QuizResultHeader({
 }) {
   return (
     <>
-      <h3 className=" text-2xl font-medium">{title}</h3>
+      <h3 className=" text-2xl font-medium">Kuis : {title}</h3>
       <p
         className={` ${
           passRate ? "text-success-foreground" : "text-danger-foreground"

@@ -1,5 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 const PREFERENCES_API_URL = import.meta.env.VITE_API_URL;
+
 async function generateQuiz(tutorialId) {
   const response = await fetch(`${API_URL}/api/generate-question/tutorials/${tutorialId}`, {
     method: 'POST',
@@ -16,7 +17,7 @@ async function generateQuiz(tutorialId) {
 
   console.log('[api] generateQuiz body : ', responseData);
 
-  return { questions: responseData.questions ?? responseData.data?.questions ?? [] };
+  return { title: responseData.title , questions: responseData.questions ?? responseData.data?.questions ?? [] };
 }
 
 async function calculateQuizScore(quizResults) {
