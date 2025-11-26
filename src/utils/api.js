@@ -16,7 +16,7 @@ async function generateQuiz(tutorialId) {
 
   console.log('[api] generateQuiz body : ', responseData);
 
-  return { questions: responseData.questions ?? responseData.data?.questions ?? [] };
+  return { title: responseData.title, questions: responseData.questions ?? responseData.data?.questions ?? [] };
 }
 
 async function calculateQuizScore(quizResults) {

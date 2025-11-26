@@ -6,7 +6,7 @@ import QuizQuestion from "../component/QuizQuestion";
 import QuizOptions from "../component/QuizOptions";
 import QuizNavigation from "../component/QuizNavigation";
 import { Separator } from "@/components/ui/separator";
-import { generateQuiz, calculateQuizScore } from "../utils/api";
+import { calculateQuizScore } from "../utils/api";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -23,7 +23,11 @@ function QuizPage() {
     // Inisialisasi quiz dengan pertanyaan acak
     // const randomQuiz = getRandomQuestions(DUMMY_QUIZ_DATA, 1, 3);
     // setQuizData(randomQuiz);
-    fetchQuiz(tutorialId);
+    const data = localStorage.getItem("question");
+    console.log("load data form local storage[quiz page]:", data);
+    if (data) {
+      setQuizData(JSON.parse(data));
+    }
   }, [tutorialId]);
 
   useEffect(() => {
@@ -44,18 +48,6 @@ function QuizPage() {
 
     return result;
   }
-
-  async function fetchQuiz(tutorialId) {
-    const result = await generateQuiz(tutorialId);
-    console.log("Fetched quiz data:", result);
-    if (!result) {
-      console.error("Failed to fetch quiz");
-      setQuizData({ title: "Quiz", questions: [] });
-      return;
-    }
-
-    setQuizData({ title: result.title || "Quiz", questions: result.questions });
-  };
 
   const handleFinishQuiz = useCallback(async () => {
     // Quiz selesai
