@@ -97,7 +97,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/quiz/result/:resultId" element={<QuizResultPage />} />
-        <Route path="/quiz/result/feedback" element={<FeedbackPage />} />
+        <Route path="/quiz/result/:resultId/feedback" element={<FeedbackPage />} />
       </Routes>
     </div>
   );

@@ -1,14 +1,13 @@
-import React, { useCallback } from "react";
-import { DUMMY_QUIZ_DATA } from "../utils/quizData";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import QuizResultHeader from "../component/QuizResultHeader";
 import QuizQuestionResult from "../component/QuizQuestionResult";
 import ExplanationPanel from "../component/ExplanationPanel";
 import QuizNavigationResult from "../component/QuizNavigationResult";
-import { useParams } from "react-router-dom";
 import { formatDate } from "../utils/quizHelpers";
+import { LuMessageSquareText } from "react-icons/lu";
 
 function QuizResultPage() {
   const navigate = useNavigate();
@@ -105,9 +104,12 @@ function QuizResultPage() {
   const handleRestart = useCallback(() => {
     navigate("/quiz");
   }, [navigate]);
-  // console.log("stats", stats);
-  // console.log("quizData", quizData);
-  if (!quizData) return <div className="loading">Memuat history...</div>;
+
+  const handleViewFeedback = useCallback(() => {
+    navigate(`/quiz/result/${resultId}/feedback`);
+  }, [navigate, resultId]);
+
+  if (!quizData) return <div className="flex items-center justify-center min-h-screen text-gray-600">Memuat history...</div>;
 
   return (
     <div className="quiz-result-page app lg:w-3xl lg:shadow-2xl lg:rounded-2xl w-full lg:my-5 bg-background">
@@ -131,7 +133,24 @@ function QuizResultPage() {
         explanation={stats?.userAnsweredData[currentQuestionIndex]?.explanation}
         isCorrect={stats?.userAnsweredData[currentQuestionIndex]?.isCorrect}
       />
-      <Separator className="my-4 bg-primary h-0.5  mb-4" />
+      <Separator className="my-4 bg-primary h-0.5 mb-4" />
+      
+      {resultData?.feedback && (
+        <>
+          <div className="mb-4">
+            <Button 
+              onClick={handleViewFeedback} 
+              className="w-full"
+              size="lg"
+            >
+              <LuMessageSquareText className="mr-2" />
+              Lihat Feedback AI
+            </Button>
+          </div>
+          <Separator className="my-4 bg-primary h-0.5 mb-4" />
+        </>
+      )}
+
       <QuizNavigationResult
         isCorrect={stats?.userAnsweredData[currentQuestionIndex]?.isCorrect}
         currentQuestionIndex={currentQuestionIndex}

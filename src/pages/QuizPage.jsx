@@ -50,32 +50,36 @@ function QuizPage() {
   }
 
   const handleFinishQuiz = useCallback(async () => {
+    console.log("Finishing quiz...");
+
     // Quiz selesai
     const historyId = Math.random().toString(36).substr(2, 9);
 
     const quizResult = {
       quizId: tutorialId,
       answers: Object.entries(selectedAnswersRef.current).map(([questionId, answer]) => ({
-        questionId,
+        questionId: parseInt(questionId),
         answer,
       })),
       questions: quizDataRef.current?.questions || [],
       finishedAt: new Date().toISOString(),
     };
 
+    console.log("Quiz result before validation:", quizResult);
+
     const result = await validateQuiz(quizResult);
 
-    console.log('[FE] quiz result => ',result);
+    console.log("[FE] quiz result => ", result);
 
     const finalQuizResult = {
-      historyId : historyId,
-      quizId : quizResult.quizId,
-      quizData: quizData,                    
+      historyId: historyId,
+      quizId: quizResult.quizId,
+      quizData: quizDataRef.current,
       answers: result?.answers ?? quizResult.answers,
       stats: result?.stats ?? null,
       finishedAt: result?.finishedAt ?? quizResult.finishedAt,
       feedback: result?.feedback ?? null,
-    }
+    };
 
     console.log("Final quiz result:", finalQuizResult);
 
@@ -86,10 +90,11 @@ function QuizPage() {
     // Simpan ke localStorage
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
     localStorage.setItem("lastQuizResult", JSON.stringify(finalQuizResult));
-    // Navigate ke hasil atau halaman lain
 
-    navigate("/?tutorial=" + tutorialId+"&user="+userId);
-  }, [navigate, timeRemaining]);
+    console.log("Navigating to home...");
+    // Navigate ke hasil atau halaman lain
+    navigate("/?tutorial=" + tutorialId + "&user=" + userId);
+  }, [navigate, tutorialId, userId]);
 
   useEffect(() => {
     const timer = setInterval(() => {
