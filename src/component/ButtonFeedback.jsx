@@ -1,19 +1,20 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { LuListRestart } from "react-icons/lu";
 import { IoHome } from "react-icons/io5";
 
-function ButtonFeedback(){
+function ButtonFeedback({ onRestart, onBackToHome }) {
   return (
-    <div className=" flex ju flex-row justify-end gap-4">
-      <Button variant="outline" size="lg" className="">
-        <LuListRestart  />
+    <div className="flex flex-row justify-end gap-4">
+      <Button variant="outline" size="lg" onClick={onRestart}>
+        <LuListRestart />
         Restart
       </Button>
-      <Button size="lg" className="">
+      <Button size="lg" onClick={onBackToHome}>
+        <IoHome />
         Back to Home
       </Button>
     </div>
   );
 }
+
 export default ButtonFeedback;
