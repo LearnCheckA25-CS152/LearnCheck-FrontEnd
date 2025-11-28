@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { DUMMY_QUIZ_DATA } from "../utils/quizData";
 import QuizHeader from "../component/QuizHeader";
 import QuizQuestion from "../component/QuizQuestion";
 import QuizOptions from "../component/QuizOptions";
@@ -52,8 +51,8 @@ function QuizPage() {
   const handleFinishQuiz = useCallback(async () => {
     console.log("Finishing quiz...");
 
-    // Quiz selesai
-    const historyId = Math.random().toString(36).substr(2, 9);
+    // Quiz selesai - generate unique ID
+    const historyId = Math.random().toString(36).substring(2, 11);
 
     const quizResult = {
       quizId: tutorialId,
@@ -91,10 +90,10 @@ function QuizPage() {
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
     localStorage.setItem("lastQuizResult", JSON.stringify(finalQuizResult));
 
-    console.log("Navigating to home...");
-    // Navigate ke hasil atau halaman lain
-    navigate("/?tutorial=" + tutorialId + "&user=" + userId);
-  }, [navigate, tutorialId, userId]);
+    console.log("Navigating to quiz result page...");
+    // Navigate langsung ke halaman hasil quiz yang baru saja dikerjakan
+    navigate(`/quiz/result/${historyId}`);
+  }, [navigate, tutorialId]);
 
   useEffect(() => {
     const timer = setInterval(() => {
