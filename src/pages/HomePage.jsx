@@ -15,6 +15,9 @@ function HomePage() {
     const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
     console.log('[homepage] quiz history => ', quizHistory);
 
+    const filteredHistory = quizHistory.filter((items) => items.quizId === tutorialId);
+    console.log('[homepage] filtered history => ', filteredHistory);
+
     console.log("quiz data [homepage] => ", quizData);
     
     useEffect(() => {
@@ -85,7 +88,7 @@ function HomePage() {
             {(quizHistory.length === 0) ? (
               <p className="text-muted-foreground">Belum ada riwayat kuis.</p>
             ) : (
-              <HistoryList quizHistory={quizHistory} />
+              <HistoryList quizHistory={filteredHistory} />
             )}
           </section>  
         </div>

@@ -1,5 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 const PREFERENCES_API_URL = import.meta.env.VITE_API_URL;
+
 async function generateQuiz(tutorialId) {
   const response = await fetch(`${API_URL}/api/generate-question/tutorials/${tutorialId}`, {
     method: 'POST',
