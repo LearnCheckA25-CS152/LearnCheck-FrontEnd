@@ -13,10 +13,10 @@ function QuizPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 menit
+  const [isLoading, setIsLoading] = useState(false);
   const selectedAnswersRef = useRef(selectedAnswers);
   const quizDataRef = useRef(quizData);
   const tutorialId = localStorage.getItem("tutorialId");
-  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     // Inisialisasi quiz dengan pertanyaan acak
@@ -49,50 +49,64 @@ function QuizPage() {
   }
 
   const handleFinishQuiz = useCallback(async () => {
-    console.log("Finishing quiz...");
 
-    // Quiz selesai - generate unique ID
-    const historyId = Math.random().toString(36).substring(2, 11);
+    try {
+      setIsLoading(true);
+      console.log("Finishing quiz...");
 
-    const quizResult = {
-      quizId: tutorialId,
-      answers: Object.entries(selectedAnswersRef.current).map(([questionId, answer]) => ({
-        questionId: parseInt(questionId),
-        answer,
-      })),
-      questions: quizDataRef.current?.questions || [],
-      finishedAt: new Date().toISOString(),
-    };
+      // Quiz selesai - generate unique ID
+      const historyId = Math.random().toString(36).substring(2, 11);
 
-    console.log("Quiz result before validation:", quizResult);
+      const quizResult = {
+        quizId: tutorialId,
+        answers: Object.entries(selectedAnswersRef.current).map(([questionId, answer]) => ({
+          questionId: parseInt(questionId),
+          answer,
+        })),
+        questions: quizDataRef.current?.questions || [],
+        finishedAt: new Date().toISOString(),
+      };
 
-    const result = await validateQuiz(quizResult);
+      console.log("Quiz result before validation:", quizResult);
 
-    console.log("[FE] quiz result => ", result);
+      const result = await validateQuiz(quizResult);
 
-    const finalQuizResult = {
-      historyId: historyId,
-      quizId: quizResult.quizId,
-      quizData: quizDataRef.current,
-      answers: result?.answers ?? quizResult.answers,
-      stats: result?.stats ?? null,
-      finishedAt: result?.finishedAt ?? quizResult.finishedAt,
-      feedback: result?.feedback ?? null,
-    };
+      if(!result) {
+        console.error("No result from quiz validation");
+        return;
+      }
 
-    console.log("Final quiz result:", finalQuizResult);
+      console.log("[FE] quiz result => ", result);
 
-    // Ambil history hasil quiz sebelumnya
-    const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
-    quizHistory.push(finalQuizResult);
+      const finalQuizResult = {
+        historyId: historyId,
+        quizId: quizResult.quizId,
+        quizData: quizDataRef.current,
+        answers: result?.answers ?? quizResult.answers,
+        stats: result?.stats ?? null,
+        finishedAt: result?.finishedAt ?? quizResult.finishedAt,
+        feedback: result?.feedback ?? null,
+      };
 
-    // Simpan ke localStorage
-    localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
-    localStorage.setItem("lastQuizResult", JSON.stringify(finalQuizResult));
+      console.log("Final quiz result:", finalQuizResult);
 
-    console.log("Navigating to quiz result page...");
-    // Navigate langsung ke halaman hasil quiz yang baru saja dikerjakan
-    navigate(`/quiz/result/${historyId}`);
+      // Ambil history hasil quiz sebelumnya
+      const quizHistory = JSON.parse(localStorage.getItem("quizHistory") || "[]");
+      quizHistory.push(finalQuizResult);
+
+      // Simpan ke localStorage
+      localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
+      localStorage.setItem("lastQuizResult", JSON.stringify(finalQuizResult));
+
+      console.log("Navigating to quiz result page...");
+      // Navigate langsung ke halaman hasil quiz yang baru saja dikerjakan
+      navigate(`/quiz/result/${historyId}`);
+    } catch (error) {
+      console.error("Error finishing quiz:", error);
+    } finally {
+      setIsLoading(false);
+    }
+    
   }, [navigate, tutorialId]);
 
   useEffect(() => {
@@ -133,6 +147,7 @@ function QuizPage() {
     });
   }, [totalQuestions, handleFinishQuiz]);
 
+
   if (!quizData)
     return <div className="flex items-center justify-center min-h-screen text-gray-600">Memuat soal...</div>;
   if (!Array.isArray(quizData.questions) || quizData.questions.length === 0)
@@ -169,6 +184,19 @@ function QuizPage() {
           onNext={handleNext}
         />
       </div>
+
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg p-6 flex flex-col items-center">
+            <svg aria-hidden="true" className="animate-spin h-10 w-10 text-blue-800" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+            </svg>
+            <span className="sr-only">Loading...</span>
+            <div className="text-gray-600 mt-3">Memproses hasil quiz...</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
