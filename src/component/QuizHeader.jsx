@@ -1,9 +1,19 @@
 import { IoMdTime } from "react-icons/io";
 import { formatTime } from "../utils/quizHelpers";
 import { Progress } from "@/components/ui/progress";
+import { useCallback } from "react";
 
 function QuizHeader({ currentQuestionIndex, totalQuestions, timeRemaining }) {
   const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+  const dynamicTimeColor = useCallback(() => {
+    if (timeRemaining <= 60) {
+      return "text-red-500";
+    } else if (timeRemaining <= 150) {
+      return "text-yellow-500";
+    } else {
+      return "text-green-500";
+    }
+  }, [timeRemaining]);
 
   return (
     <div className="mb-4 flex justify-between items-center gap-4">
@@ -23,11 +33,11 @@ function QuizHeader({ currentQuestionIndex, totalQuestions, timeRemaining }) {
           ></div>
           
         </div> */}
-          <Progress className="mt-1" value={progress} />
+        <Progress className="mt-1" value={progress} />
       </div>
       <div className="flex items-center gap-1.5 justify-end">
-        <IoMdTime className="w-7 h-7 text-[#22C55E]" />
-        <span className="text-lg font-medium text-[#22C55E]">
+        <IoMdTime className={`w-7 h-7 ${dynamicTimeColor()}`} />
+        <span className={`text-lg font-medium ${dynamicTimeColor()}`}>
           {formatTime(timeRemaining)}
         </span>
       </div>
