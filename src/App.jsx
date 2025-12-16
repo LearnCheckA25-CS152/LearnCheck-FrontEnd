@@ -91,7 +91,7 @@ function App() {
   }
   return (
     <div
-      className={`app-container bg-background  text-foreground px-4 py-6 h-screen flex items-center justify-center  mt-5`}
+      className={`app-container bg-background  text-foreground px-4 py-6 h-screen flex items-center justify-center`}
     >
       <Routes>
         <Route path="/" element={<HomePage />} />
